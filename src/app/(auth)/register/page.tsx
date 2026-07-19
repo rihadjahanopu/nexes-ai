@@ -23,12 +23,6 @@ export default function RegisterPage() {
   const { login } = useAuth();
   const router = useRouter();
 
-  const handleDemoRegister = () => {
-    setName('Itrihad Demo');
-    setEmail('itrihad@gmail.com');
-    setPassword('12345678');
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -135,16 +129,6 @@ export default function RegisterPage() {
                   </Button>
                 </form>
                 <div className="mt-6 flex flex-col gap-4">
-                  <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-                    <Button 
-                      type="button" 
-                      variant="outline" 
-                      className="w-full h-12 font-medium border-primary/20 hover:bg-primary/10 transition-colors" 
-                      onClick={handleDemoRegister}
-                    >
-                      Fill Demo Credentials
-                    </Button>
-                  </motion.div>
                   <div className="relative my-2">
                     <div className="absolute inset-0 flex items-center">
                       <span className="w-full border-t border-border/50" />
