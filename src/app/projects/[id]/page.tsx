@@ -9,7 +9,7 @@ import api from '@/lib/axios';
 import { useParams } from 'next/navigation';
 import { 
   Loader2, Send, FileText, UploadCloud, Edit2, Trash2, 
-  Save, X, Eraser, Bot, Clock, AlertTriangle, Download
+  Save, X, Eraser, Bot, Clock, AlertTriangle, Download, Menu
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
@@ -38,6 +38,7 @@ export default function ProjectDetailPage() {
   const [isClearing, setIsClearing] = useState(false);
   const [deletingMsgId, setDeletingMsgId] = useState<string | null>(null);
   const [showHistoryPanel, setShowHistoryPanel] = useState(false);
+  const [showMobileSidebar, setShowMobileSidebar] = useState(false);
   
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState('');
@@ -261,22 +262,24 @@ export default function ProjectDetailPage() {
   return (
     <div className="min-h-screen flex flex-col bg-muted/10">
       <Navbar />
-      <div className="flex-1 container mx-auto p-4 md:p-8 pt-24 md:pt-28 flex flex-col md:flex-row gap-6" style={{ height: 'calc(100vh - 0px)', maxHeight: '100vh' }}>
+      <div className="flex-1 container mx-auto p-4 md:p-8 pt-24 md:pt-28 flex flex-col md:flex-row gap-6" style={{ height: '100dvh', maxHeight: '100dvh' }}>
         
         {/* Left Panel: Project Details */}
-        <div className="w-full md:w-1/3 flex flex-col gap-4 overflow-y-auto pb-4 min-h-0">
-          <Card className="relative overflow-hidden">
+        <div className={`w-full md:w-1/3 flex-col gap-4 overflow-y-auto pb-4 min-h-0 ${showMobileSidebar ? 'flex' : 'hidden md:flex'}`}>
+          <Card className="relative overflow-hidden shrink-0">
             <CardHeader className="pb-3">
-              <div className="flex justify-between items-start gap-2">
+              <div className="flex justify-between items-start gap-2 w-full">
                 {isEditing ? (
-                  <Input 
-                    value={editTitle} 
-                    onChange={e => setEditTitle(e.target.value)} 
-                    className="font-bold text-lg" 
-                    placeholder="Project Title"
-                  />
+                  <div className="flex-1 w-full min-w-0">
+                    <Input 
+                      value={editTitle} 
+                      onChange={e => setEditTitle(e.target.value)} 
+                      className="font-bold text-lg w-full" 
+                      placeholder="Project Title"
+                    />
+                  </div>
                 ) : (
-                  <CardTitle className="text-2xl break-words leading-tight">{project.title}</CardTitle>
+                  <CardTitle className="text-2xl break-words leading-tight flex-1">{project.title}</CardTitle>
                 )}
                 
                 <div className="flex gap-1 shrink-0">
@@ -300,6 +303,9 @@ export default function ProjectDetailPage() {
                       </Button>
                       <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive hover:bg-destructive/10" onClick={handleDelete}>
                         <Trash2 className="h-4 w-4" />
+                      </Button>
+                      <Button variant="ghost" size="icon" className="h-8 w-8 md:hidden" onClick={() => setShowMobileSidebar(false)}>
+                        <X className="h-5 w-5" />
                       </Button>
                     </>
                   )}
@@ -425,11 +431,19 @@ export default function ProjectDetailPage() {
         </div>
 
         {/* Right Panel: Agent Chat */}
-        <Card className="w-full md:w-2/3 flex flex-col min-h-0 shadow-lg border-primary/20 overflow-hidden">
+        <Card className={`w-full md:w-2/3 flex-col min-h-0 shadow-lg border-primary/20 overflow-hidden ${showMobileSidebar ? 'hidden' : 'flex'}`}>
           <CardHeader className="border-b bg-card rounded-t-xl py-4 shrink-0">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 bg-gradient-to-br from-primary to-blue-600 rounded-full flex items-center justify-center shadow-inner">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="md:hidden -ml-2" 
+                  onClick={() => setShowMobileSidebar(true)}
+                >
+                  <Menu className="h-5 w-5" />
+                </Button>
+                <div className="h-10 w-10 bg-gradient-to-br from-primary to-blue-600 rounded-full flex items-center justify-center shadow-inner hidden sm:flex">
                   <Bot className="h-5 w-5 text-white" />
                 </div>
                 <div>
