@@ -260,9 +260,9 @@ export default function ProjectDetailPage() {
   if (!project) return <div className="text-center p-20">Project not found</div>;
 
   return (
-    <div className="min-h-screen flex flex-col bg-muted/10">
+    <div className="h-dvh flex flex-col bg-muted/10 overflow-hidden">
       <Navbar />
-      <div className="flex-1 container mx-auto p-4 md:p-8 pt-24 md:pt-28 flex flex-col md:flex-row gap-6" style={{ height: '100dvh', maxHeight: '100dvh' }}>
+      <div className="flex-1 container mx-auto p-4 md:p-8 pt-24 md:pt-28 flex flex-col md:flex-row gap-6 overflow-hidden min-h-0">
         
         {/* Left Panel: Project Details */}
         <div className={`w-full md:w-1/3 flex-col gap-4 overflow-y-auto pb-4 min-h-0 ${showMobileSidebar ? 'flex' : 'hidden md:flex'}`}>
