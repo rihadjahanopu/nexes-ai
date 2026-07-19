@@ -42,7 +42,7 @@ export function Navbar() {
     : '?';
 
   return (
-    <div className="w-full flex justify-center px-4 pt-4 pb-2 fixed top-0 z-50">
+    <div className="fixed inset-x-0 top-0 flex justify-center px-4 pt-4 pb-2 z-50">
       <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -155,11 +155,11 @@ export function Navbar() {
               </div>
             ) : (
               <>
-                <Link href="/login">
-                  <Button variant="ghost" className="rounded-full h-9 px-4 hidden sm:flex hover:bg-primary/10">Login</Button>
+                <Link href="/login" className="hidden lg:block">
+                  <Button variant="ghost" className="rounded-full h-9 px-4 hover:bg-primary/10">Login</Button>
                 </Link>
-                <Link href="/register">
-                  <Button className="rounded-full h-9 px-4 sm:px-5 shadow-primary/20 shadow-md text-sm">Get Started</Button>
+                <Link href="/register" className="hidden lg:block">
+                  <Button className="rounded-full h-9 px-5 shadow-primary/20 shadow-md text-sm">Get Started</Button>
                 </Link>
               </>
             )}
@@ -168,10 +168,10 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden h-9 w-9 rounded-full shrink-0 hover:bg-primary/10"
+              className="lg:hidden h-10 w-10 rounded-full shrink-0 hover:bg-primary/10"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
           </div>
         </div>
@@ -191,10 +191,20 @@ export function Navbar() {
               <Link href="/#testimonials" onClick={() => setMobileMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/10 text-sm font-medium transition-colors">Testimonials</Link>
               <Link href="/#faq" onClick={() => setMobileMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/10 text-sm font-medium transition-colors">FAQ</Link>
               
+              {user && (
+                <>
+                  <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/10 text-sm font-medium transition-colors text-primary">Dashboard</Link>
+                  <Link href="/projects" onClick={() => setMobileMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/10 text-sm font-medium transition-colors text-primary">Projects</Link>
+                </>
+              )}
+
               {!user && (
-                <div className="flex flex-col gap-3 pt-3 mt-1 border-t border-border/50 sm:hidden">
+                <div className="flex flex-col gap-3 pt-3 mt-1 border-t border-border/50">
                   <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
-                    <Button variant="outline" className="w-full rounded-xl h-11 border-primary/20">Login</Button>
+                    <Button variant="outline" className="w-full rounded-xl h-11 border-primary/20 hover:bg-primary/5">Login</Button>
+                  </Link>
+                  <Link href="/register" onClick={() => setMobileMenuOpen(false)}>
+                    <Button className="w-full rounded-xl h-11 shadow-primary/20 shadow-md">Get Started</Button>
                   </Link>
                 </div>
               )}

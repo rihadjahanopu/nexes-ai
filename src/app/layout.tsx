@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${outfit.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`${outfit.variable} ${geistMono.variable} font-sans antialiased overflow-x-hidden`}
       >
         <NextTopLoader
           color="hsl(var(--primary))"
